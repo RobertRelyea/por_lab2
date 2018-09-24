@@ -1,9 +1,7 @@
 #include "hexapod.h"
 
 void setup() {                
-	mySSC32.begin(9600);
-	mySSC32.enableServos(channels);
-	mySSC32.setFrame(three);
+	hexapodSetup();
 	delay (1000);
 	pinMode(13,OUTPUT);
  
@@ -11,7 +9,7 @@ void setup() {
 
 void loop() {
 
-  rippleGait();
+  waveGait();
 
     
     
