@@ -18,6 +18,8 @@ typedef enum{
 	LF = 20
 }legChannel;
 
+int getLegMapping(legChannel lc);
+
 void hexapodSetup();
 
 /*
@@ -38,6 +40,11 @@ void setLegs(legChannel lc[], liftState ls[], int num);
 
 void sendLegs();
 
+void newTripod();
+void newWave();
+void newRipple();
+void turnRight();
+void turnLeft();
 
 // Old
 void waveGait();
