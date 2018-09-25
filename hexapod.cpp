@@ -72,7 +72,7 @@ void setLeg(legChannel lc, liftState ls)
 	legBuff[getLegMapping(lc)+1] = leg_lift[ls][getLegMapping(lc)/2];
 }
 
-// TODO
+// Set multiple servo pulse lengths in legBuff
 void setLegs(legChannel lc[], int sw[], liftState ls[], int num)
 {
 	for(int i = 0; i < num; ++i)
@@ -97,15 +97,7 @@ void setLegs(legChannel lc[], liftState ls[], int num)
 	}
 }
 
-void printBuff()
-{
-  for(int i = 0; i < 12; ++i)
-  {
-    Serial.println(legBuff[i]);
-  }
-}
-
-
+// Sends the servo pulse length values stored in legBuff to the servo controller
 void sendLegs()
 {
   //printBuff();
@@ -114,7 +106,7 @@ void sendLegs()
 	delay(50);
 }
 
-// Tested sequence, untested implementation
+// Tripod Gait
 void newTripod()
 {
 	// Step 1 - All (initial state)
@@ -148,7 +140,7 @@ void newTripod()
  //Serial.println("here4");
 }
 
-// Completely untested sequence
+// Wave Gait
 void newWave()
 {
 	// Step 1 - All (initial state)
@@ -214,7 +206,7 @@ void newWave()
 	sendLegs();
 }
 
-// Completely untested sequence
+// Ripple Gait
 void newRipple()
 {
 	// Step 1 - All (initial state)
@@ -250,7 +242,43 @@ void newRipple()
 	sendLegs();
 }
 
-// Completely untested sequence
+// Custom hexapod gait sequence
+void newGait()
+{
+  // Step 1 - All (initial state)
+  legChannel channels[] = {RB, RC, RF, LB, LC, LF};
+  int sweeps1[] =          {0,  5,  5,  0,  5,  5,};
+  liftState lifts1[] =     {RAISE, LOWER, LOWER, RAISE, LOWER, LOWER};
+  setLegs(channels, sweeps1, lifts1, 6);
+  sendLegs();
+
+  // Step 2 - Lifts only
+  liftState lifts2[] = {LOWER, RAISE, LOWER, LOWER, RAISE, LOWER};
+  setLegs(channels, lifts2, 6);
+  sendLegs();
+
+  // Step 3 - Sweeps only
+  int sweeps3[] = {5,  0,  5,  5,  0,  5};
+  setLegs(channels, sweeps3, 6);
+  sendLegs();
+
+  // Step 4 - Lifts only
+  liftState lifts4[] = {LOWER, LOWER, RAISE, LOWER, LOWER, RAISE};
+  setLegs(channels, lifts4, 6);
+  sendLegs();
+
+  // Step 5 - Sweeps only
+  int sweeps5[] = {5,  5,  0,  5,  5,  0};
+  setLegs(channels, sweeps5, 6);
+  sendLegs();
+
+  // Step 6 - Lifts only
+  liftState lifts6[] = {RAISE, LOWER, LOWER, RAISE, LOWER, LOWER};
+  setLegs(channels, lifts6, 6);
+  sendLegs();
+}
+
+// Turns the robot roughly 15 degrees to the right
 void turnRight()
 {
   // Step 1 - All (initial state)

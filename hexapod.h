@@ -33,21 +33,30 @@ void setLeg(legChannel lc, int sw, liftState ls);
 void setLeg(legChannel lc, int sw);
 void setLeg(legChannel lc, liftState ls);
 
-// TODO
+/*
+	Apply multiple changes to legBuff.
+	inputs:
+		legChannel lc[] => base servo channels for legs to be set
+		int sw[]        => sweep positions for legs
+		liftState ls[]  => lift positions for legs
+*/
 void setLegs(legChannel lc[], int sw[], liftState ls[], int num);
 void setLegs(legChannel lc[], int sw[], int num);
 void setLegs(legChannel lc[], liftState ls[], int num);
 
+/*
+	Sends the servo pulse length values stored in legBuff to the servo controller
+*/
 void sendLegs();
 
+/*
+	Gait sequences for hexapod movement
+*/
 void newTripod();
 void newWave();
 void newRipple();
 void turnRight();
 void turnLeft();
-
-// Old
-void waveGait();
-void tripodGait();
+void newGait();
 
 #endif
